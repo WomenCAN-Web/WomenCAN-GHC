@@ -3,31 +3,62 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 17, 24, 39; /* dark theme start */
+  --background-end-rgb: 75, 0, 130; /* dark theme end - purple */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-start-rgb: 17, 24, 39;
+    --background-end-rgb: 75, 0, 130;
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    to bottom,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.contributor-container {
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Makes the container round */
+  overflow: hidden; /* Hides anything outside the border-radius */
+}
+
+.rounded-full {
+  position: relative;
+  width: 100%; /* 100% of the contributor-container */
+  height: 100%; /* 100% of the contributor-container */
+  border-radius: 50%; /* Ensures the image stays round */
+}
+
+.contributor-name {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0); /* Transparent background */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0; /* Hide text by default */
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  border-radius: 50%; /* Ensures the overlay stays round */
+}
+
+.contributor-container:hover .contributor-name {
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent overlay */
+  opacity: 1; /* Show text on hover */
 }
